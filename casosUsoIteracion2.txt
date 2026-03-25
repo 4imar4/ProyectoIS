@@ -1,0 +1,5 @@
+ver ofertas realizadas (comprador)
+vender producto
+Historial bancario
+
+clases nuevas: oferta, transaccion

@@ -12,6 +12,7 @@ import domain.Offer;
 import domain.Sale;
 import domain.Seller;
 import domain.User;
+import domain.Transaccion;
 import exceptions.FileNotUploadedException;
 import exceptions.MustBeLaterThanTodayException;
 import exceptions.SaleAlreadyExistException;
@@ -162,6 +163,30 @@ public class BLFacadeImplementation  implements BLFacade {
 		List<Offer>  rides=dbManager.getOffers((Seller) usuario);
 		dbManager.close();
 		return rides;
+	}
+	
+	@Override
+	public Transaccion recargarSaldo(String email, float cantidad) {
+		dbManager.open();
+		Transaccion recarga = dbManager.recargarSaldo(email, cantidad);
+		dbManager.close();
+		return recarga;
+	}
+
+	@Override
+	public List<Transaccion> getTransacciones(String email) {
+		dbManager.open();
+		List<Transaccion> transacciones = dbManager.getTransacciones(email);
+		dbManager.close();
+		return transacciones;
+	}
+
+	@Override
+	public float getSaldo(String email) {
+		dbManager.open();
+		float saldo = dbManager.getSaldo(email);
+		dbManager.close();
+		return saldo;
 	}
 
 }

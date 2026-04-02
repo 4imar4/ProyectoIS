@@ -14,6 +14,7 @@ public class User implements Serializable{
 	private String email;
 	private String name;
 	private String contrasena;
+	private float saldo = 0.0f;
 	
 	public User(String email, String name,String contrasena) {
 	    this.email = email;
@@ -21,6 +22,7 @@ public class User implements Serializable{
 	    this.contrasena=contrasena;
 	}
 	public User() {}
+
 
 	public String getEmail() {
 		return email;
@@ -47,6 +49,12 @@ public class User implements Serializable{
 	}
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
+	}
+	public float getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(float saldo) {
+		this.saldo = saldo;
 	}
 	
 	

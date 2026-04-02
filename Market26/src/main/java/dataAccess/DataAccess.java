@@ -24,6 +24,7 @@ import domain.User;
 import domain.Buyer;
 import domain.Offer;
 import domain.Sale;
+import domain.Transaccion;
 import exceptions.FileNotUploadedException;
 import exceptions.MustBeLaterThanTodayException;
 import exceptions.SaleAlreadyExistException;
@@ -292,6 +293,42 @@ public class DataAccess  {
 		  }
 	 	return res;
 	}
+	
+	//kailai-----------------------------------------------------------------------------------------------------------------------------
+	
+	public Transaccion recargarSaldo(String email, float cantidad) {
+        db.getTransaction().begin();
+        User u = db.find(User.class, email); 
+        
+        if (u != null) {
+            u.setSaldo(u.getSaldo() + cantidad);
+            Transaccion t = new Transaccion(cantidad, "RECARGA", "Operación exitosa", u);
+            db.persist(t);
+            db.getTransaction().commit();
+            return t;
+        }
+        db.getTransaction().commit();
+        return null;
+    }
+
+    public List<Transaccion> getTransacciones(String email) {
+        TypedQuery<Transaccion> query = db.createQuery(
+            "SELECT t FROM Transaccion t WHERE t.usuario.email = ?1 ORDER BY t.fecha DESC", 
+            Transaccion.class
+        );
+        query.setParameter(1, email);
+        return query.getResultList();
+    }
+    
+    public float getSaldo(String email) {
+        User u = db.find(User.class, email);
+        if (u != null) {
+            return u.getSaldo();
+        }
+        return 0.0f;
+    }
+
+//fin kailai----------------------------------------------------------------------------------------------------------------------------
 	
 	public void close(){
 		db.close();

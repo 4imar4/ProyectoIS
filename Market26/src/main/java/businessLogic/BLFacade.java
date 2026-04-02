@@ -8,6 +8,7 @@ import domain.Buyer;
 import domain.Offer;
 import domain.Sale;
 import domain.User;
+import domain.Transaccion;
 import exceptions.FileNotUploadedException;
 import exceptions.MustBeLaterThanTodayException;
 import exceptions.SaleAlreadyExistException;
@@ -77,5 +78,9 @@ public interface BLFacade  {
 	public boolean registrarse(String correo, String contrasena, String tipo,String nombre);
 	public boolean anadirCompra(String ofertTexto,Sale s,Buyer comprador) throws NumberFormatException;
 	public List<Offer> getOffers(User usuario);
+	
+	public Transaccion recargarSaldo(String email, float cantidad);
+	public List<Transaccion> getTransacciones(String email);
+	public float getSaldo(String email);
 
 }

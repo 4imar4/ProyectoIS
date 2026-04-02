@@ -32,6 +32,7 @@ public class MainGUI extends JFrame {
 	private JButton jButtonCreateQuery = null;
 	private JButton jButtonQueryQueries = null;
 	private JButton jButtonAcceptQueries=null;
+	private JButton jButtonMiCartera;
 
     private static BLFacade appFacadeInterface;
 	
@@ -313,6 +314,9 @@ public class MainGUI extends JFrame {
 					jLabelSelectOption.setVisible(true);
 					btnEntrar.setVisible(false);
 					btnBack.setVisible(false);
+//kailai------------------------------------------------------------------------------------------------------------------------
+					jButtonMiCartera.setVisible(true);
+//fin kailai--------------------------------------------------------------------------------------------------------------------
 					if(usuario instanceof Seller) {
 						jButtonCreateQuery.setVisible(true);
 						jButtonQueryQueries.setVisible(true);
@@ -393,6 +397,9 @@ public class MainGUI extends JFrame {
 						btnBack.setVisible(false);
 						lblIntroNombre.setVisible(false);
 						textFieldNom.setVisible(false);
+//kailai------------------------------------------------------------------------------------------------------------------------
+						jButtonMiCartera.setVisible(true);
+//fin kailai--------------------------------------------------------------------------------------------------------------------
 						if(usuario instanceof Seller) {
 							jButtonCreateQuery.setVisible(true);
 							jButtonQueryQueries.setVisible(true);
@@ -431,6 +438,21 @@ public class MainGUI extends JFrame {
 			}
 		});
 		
+//kailai---------------------------------------------------------------------------------------------------------------------------------
+		jButtonMiCartera = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
+		jButtonMiCartera.setBounds(360, 15, 110, 30); 
+		jButtonMiCartera.setVisible(false);
+		jButtonMiCartera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (usuario != null) {
+					JFrame carteraWindow = new WalletGUI(usuario.getEmail());
+					carteraWindow.setVisible(true);
+					carteraWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+				}
+			}
+		});
+		jContentPane.add(jButtonMiCartera);
+//fin kailai-------------------------------------------------------------------------------------------------------------------------------
 	}
 	
 	private void paintAgain() {
@@ -450,7 +472,7 @@ public class MainGUI extends JFrame {
 		btnReg.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.Reg"));
 		lblIntroNombre.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.Nom"));
 		jButtonAcceptQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.AcceptSales"));
-
+		jButtonMiCartera.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
 	}
 	
 	

@@ -294,6 +294,20 @@ public class DataAccess  {
 	 	return res;
 	}
 	
+	public List<Offer> getOffersComprador(Buyer bu) {
+		System.out.println(">> DataAccess: getProducts=> ");
+		List<Offer> res = new ArrayList<Offer>();	
+		TypedQuery<Offer> query = db.createQuery("SELECT o FROM Offer o JOIN o.sale s",Offer.class);   
+		
+		List<Offer> offers = query.getResultList();
+	 	 for (Offer offer:offers){
+	 		 if(offer.getBuyer().getEmail().equals(bu.getEmail())) {
+	 			   res.add(offer);
+	 		 }
+		  }
+	 	return res;
+	}
+	
 	//kailai-----------------------------------------------------------------------------------------------------------------------------
 	
 	public Transaccion recargarSaldo(String email, float cantidad) {

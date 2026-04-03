@@ -31,6 +31,8 @@ public class MainGUI extends JFrame {
 	private JPanel jContentPane = null;
 	private JButton jButtonCreateQuery = null;
 	private JButton jButtonQueryQueries = null;
+	private JButton jButtonVerCarrito = null;
+
 	private JButton jButtonAcceptQueries=null;
 	private JButton jButtonMiCartera;
 
@@ -95,6 +97,20 @@ public class MainGUI extends JFrame {
 		
 		jButtonQueryQueries.setEnabled(false);
 		jButtonQueryQueries.setVisible(false);
+		
+		jButtonVerCarrito = new JButton();
+		jButtonVerCarrito.setBounds(0, 189, 480, 63);
+		jButtonVerCarrito.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.VerCarrito"));
+		jButtonVerCarrito.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				JFrame a = new CarritoGUI(usuario);
+			
+				a.setVisible(true);
+			}
+		});
+		jButtonVerCarrito.setEnabled(false);
+		jButtonVerCarrito.setVisible(false);
+		
 
 		jButtonAcceptQueries = new JButton();
 		jButtonAcceptQueries.setBounds(240, 126, 240, 63);
@@ -114,6 +130,7 @@ public class MainGUI extends JFrame {
 		jContentPane = new JPanel();
 		jContentPane.setLayout(null);
 		jContentPane.add(jLabelSelectOption);
+		jContentPane.add(jButtonVerCarrito);
 		
 		jButtonSignIn = new JButton(); 
 		jButtonSignIn.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignIn"));
@@ -141,7 +158,6 @@ public class MainGUI extends JFrame {
 				lblIntroNombre.setVisible(true);
 				textFieldNom.setVisible(true);
 				btnReg.setEnabled(false);
-				
 			}
 		});
 		jContentPane.add(jButtonSignIn);
@@ -178,7 +194,6 @@ public class MainGUI extends JFrame {
 				lblNewLabel_2.setVisible(false);
 				btnEntrar.setEnabled(true);
 				btnEntrar.setVisible(true);
-
 				
 			}
 		});
@@ -328,7 +343,11 @@ public class MainGUI extends JFrame {
 					}else {
 						jButtonQueryQueries.setVisible(true);
 						jButtonQueryQueries.setEnabled(true);
-						jButtonQueryQueries.setBounds(0, 80, 480, 63);
+						jButtonQueryQueries.setBounds(0, 55, 480, 63);
+						jButtonVerCarrito.setVisible(true);
+						jButtonVerCarrito.setEnabled(true);
+						jButtonVerCarrito.setBounds(0, 118, 480, 63);
+						
 					}
 					paintAgain();
 				}		  
@@ -411,7 +430,10 @@ public class MainGUI extends JFrame {
 						}else {
 							jButtonQueryQueries.setVisible(true);
 							jButtonQueryQueries.setEnabled(true);
-							jButtonQueryQueries.setBounds(0, 80, 480, 63);
+							jButtonQueryQueries.setBounds(0, 55, 480, 63);
+							jButtonVerCarrito.setVisible(true);
+							jButtonVerCarrito.setEnabled(true);
+							jButtonVerCarrito.setBounds(0, 118, 480, 63);
   
 						}
 						
@@ -473,6 +495,8 @@ public class MainGUI extends JFrame {
 		lblIntroNombre.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.Nom"));
 		jButtonAcceptQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.AcceptSales"));
 		jButtonMiCartera.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
+		jButtonVerCarrito.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.VerCarrito"));
+
 	}
 	
 	

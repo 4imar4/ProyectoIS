@@ -19,7 +19,7 @@ import domain.User;
 
 
 public class ShowOfferGUI extends JFrame {
-	Seller seller;
+	User us;
     File targetFile;
     BufferedImage targetImg;
     public JPanel panel_1;
@@ -53,8 +53,8 @@ public class ShowOfferGUI extends JFrame {
 	private JLabel lblPriceCom;
 	private JTextField textFieldPriceComp;
 	
-	public ShowOfferGUI(Offer offer,Seller seller) {
-		this.seller=seller;
+	public ShowOfferGUI(Offer offer,User user) {
+		this.us=user;
 		thisFrame=this; 
 		this.setVisible(true);
 		this.getContentPane().setLayout(null);

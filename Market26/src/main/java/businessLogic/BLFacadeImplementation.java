@@ -165,6 +165,13 @@ public class BLFacadeImplementation  implements BLFacade {
 		return rides;
 	}
 	
+	public List<Offer> getOffersComprador(User usuario){
+		dbManager.open();
+		List<Offer>  rides=dbManager.getOffersComprador((Buyer) usuario);
+		dbManager.close();
+		return rides;
+	}
+	
 	@Override
 	public Transaccion recargarSaldo(String email, float cantidad) {
 		dbManager.open();

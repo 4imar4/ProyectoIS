@@ -146,10 +146,17 @@ public class BLFacadeImplementation  implements BLFacade {
 		return false;
     }
     
-    public boolean anadirCompra(String ofertTexto,Sale s,Buyer comprador) throws NumberFormatException{
+    public boolean anadirCompra(String ofertTexto,Sale s,Buyer comprador) throws NumberFormatException, Exception{
     	float oferta=Float.parseFloat(ofertTexto);
     	if(oferta>=0.0) {
     		dbManager.open();
+    		float saldoActual = dbManager.getSaldo(comprador.getEmail());
+    		//kailai--------------------------------------------------------------------------------------
+    		if (saldoActual < oferta) {
+    			dbManager.close();
+    			throw new Exception("Saldo insuficiente. Tu saldo es de " + saldoActual + " €.");
+    		}
+    		//fin kailai----------------------------------------------------------------------------------
     		dbManager.createOferta(s,oferta,comprador);
     		dbManager.close();
     		return true;

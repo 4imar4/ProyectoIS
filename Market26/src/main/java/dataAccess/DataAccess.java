@@ -313,8 +313,22 @@ public class DataAccess  {
 	 	return res;
 	}
 	
-	public void aceptarOferta(Offer o) {
-	    db.getTransaction().begin();
+	public void aceptarOferta(Offer o){	
+		db.getTransaction().begin();
+		
+		//kailai---------------------------------------------------------------------------------------------
+	    Sale v = db.find(Sale.class, o.getSale().getSaleNumber()); 
+	    User comprador = db.find(User.class, o.getBuyer().getEmail());
+	    User vendedor = db.find(User.class, v.getSeller().getEmail());
+	    float precioFinal = o.getOfferedPrice();
+	    comprador.setSaldo(comprador.getSaldo() - precioFinal);
+	    Transaccion pago = new Transaccion(precioFinal, "COBRO", "Pago por: " + v.getTitle(), comprador);
+	    db.persist(pago);
+	    vendedor.setSaldo(vendedor.getSaldo() + precioFinal);
+	    Transaccion ingreso = new Transaccion(precioFinal, "INGRESO", "Venta de: " + v.getTitle(), vendedor);
+	    db.persist(ingreso);
+	    //fin kailai------------------------------------------------------------------------------------------
+	    
 	    //Sale s=o.getSale();
 	    Sale s = db.find(Sale.class, o.getSale().getSaleNumber());
 	    for(Offer of:s.getOfertas()) {

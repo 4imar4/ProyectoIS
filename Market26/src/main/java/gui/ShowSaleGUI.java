@@ -175,6 +175,9 @@ public class ShowSaleGUI extends JFrame {
 					}
 				}catch(NumberFormatException a) {
 					lblRes.setText(ResourceBundle.getBundle("Etiquetas").getString("ShowSaleGUI.lblResFAIL"));
+				}catch (Exception ex) {
+					lblRes.setText(ex.getMessage());
+					lblRes.setForeground(java.awt.Color.RED);
 				}	
 			}
 		});

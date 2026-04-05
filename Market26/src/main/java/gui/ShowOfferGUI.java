@@ -170,8 +170,8 @@ public class ShowOfferGUI extends JFrame {
 			jButtonAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					BLFacade facade = MainGUI.getBusinessLogic();
-					facade.aceptarOferta(offer);
-					thisFrame.setVisible(false);
+						facade.aceptarOferta(offer);
+						thisFrame.setVisible(false);
 				}
 			});
 			getContentPane().add(jButtonAceptar);

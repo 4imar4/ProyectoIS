@@ -209,7 +209,9 @@ public class DataAccess  {
 		
 		List<Sale> sales = query.getResultList();
 	 	 for (Sale sale:sales){
-		   res.add(sale);
+	 		 if(!sale.isVendido()) {
+	 			 res.add(sale);
+	 		 }
 		  }
 	 	return res;
 	}
@@ -289,7 +291,10 @@ public class DataAccess  {
 		
 		List<Offer> offers = query.getResultList();
 	 	 for (Offer offer:offers){
-		   res.add(offer);
+	 		if(offer.getAccepted()==0) {
+	 			 res.add(offer);
+	 		}
+		  
 		  }
 	 	return res;
 	}
@@ -306,6 +311,22 @@ public class DataAccess  {
 	 		 }
 		  }
 	 	return res;
+	}
+	
+	public void aceptarOferta(Offer o) {
+	    db.getTransaction().begin();
+	    //Sale s=o.getSale();
+	    Sale s = db.find(Sale.class, o.getSale().getSaleNumber());
+	    for(Offer of:s.getOfertas()) {
+	    	if(of.equals(o)) {
+	    		of.setAccepted(1);
+	    	}else {
+	    		of.setAccepted(-1);
+	    	}
+	    }
+	    s.setVendido(true);
+	    db.persist(s);
+		db.getTransaction().commit();	
 	}
 	
 	//kailai-----------------------------------------------------------------------------------------------------------------------------

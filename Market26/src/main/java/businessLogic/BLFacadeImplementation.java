@@ -195,6 +195,12 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return saldo;
 	}
+	
+	public void aceptarOferta(Offer o){
+    		dbManager.open();
+    		dbManager.aceptarOferta(o);
+    		dbManager.close();
+    }
 
 }
 

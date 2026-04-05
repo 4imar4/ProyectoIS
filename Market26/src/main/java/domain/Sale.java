@@ -33,6 +33,7 @@ public class Sale implements Serializable {
 	private List<Offer> ofertas=new ArrayList<Offer>();
 	@OneToMany
 	private Seller seller;  
+	private boolean vendido=false;
 	
 	public Sale(){
 		super();
@@ -237,6 +238,14 @@ public class Sale implements Serializable {
         return oferta;
 	}
 
+	public boolean isVendido() {
+		return vendido;
+	}
 
+	public void setVendido(boolean vendido) {
+		this.vendido = vendido;
+	}
+
+	
 	
 }

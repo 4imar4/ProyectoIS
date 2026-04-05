@@ -36,12 +36,16 @@ public class CarritoGUI extends JFrame {
 			ResourceBundle.getBundle("Etiquetas").getString("CreateSaleGUI.Title"), 
 			ResourceBundle.getBundle("Etiquetas").getString("CreateSaleGUI.Price"),
 			ResourceBundle.getBundle("Etiquetas").getString("AcceptSaleGUI.Offer"),
+			ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Estado"),
 
 	};
 	private JTextField jTextFieldSearch;
-	
+	private HashMap<Integer, String> texto=new HashMap<Integer, String>();
 
 	public CarritoGUI(User us) {
+		texto.put(-1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Rechazado"));
+		texto.put(0, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Pendiente"));
+		texto.put(1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Aceptado"));
 		usuario=us;
 		tableProducts.setEnabled(false);
 		thisFrame=this;
@@ -72,7 +76,7 @@ public class CarritoGUI extends JFrame {
 		tableProducts.setModel(tableModelProducts);
 
 		tableModelProducts.setDataVector(null, columnNamesProducts);
-		tableModelProducts.setColumnCount(4); // another column added to allocate ride objects
+		tableModelProducts.setColumnCount(5); // another column added to allocate ride objects
 
 		tableProducts.getColumnModel().getColumn(0).setPreferredWidth(200);
 		tableProducts.getColumnModel().getColumn(1).setPreferredWidth(10);
@@ -92,7 +96,7 @@ public class CarritoGUI extends JFrame {
 		 	public void actionPerformed(ActionEvent e) {
 		 		try {
 					tableModelProducts.setDataVector(null, columnNamesProducts);
-					tableModelProducts.setColumnCount(4); // another column added to allocate product object
+					tableModelProducts.setColumnCount(5); // another column added to allocate product object
 
 					BLFacade facade = MainGUI.getBusinessLogic();
 
@@ -105,6 +109,7 @@ public class CarritoGUI extends JFrame {
 						row.add(offer.getSale().getTitle());
 						row.add(offer.getSale().getPrice());
 						row.add(offer.getOfferedPrice());
+						row.add(texto.get(offer.getAccepted()));
 						row.add(offer); // product object added in order to obtain it with tableModelProducts.getValueAt(i,2)
 						tableModelProducts.addRow(row);		
 					}
@@ -116,7 +121,7 @@ public class CarritoGUI extends JFrame {
 				tableProducts.getColumnModel().getColumn(1).setPreferredWidth(10);
 				tableProducts.getColumnModel().getColumn(1).setPreferredWidth(70);
 
-				tableProducts.getColumnModel().removeColumn(tableProducts.getColumnModel().getColumn(3)); // not shown in JTable
+				tableProducts.getColumnModel().removeColumn(tableProducts.getColumnModel().getColumn(4)); // not shown in JTable
 		 		
 		 	}
 		 });
@@ -132,7 +137,7 @@ public class CarritoGUI extends JFrame {
 			        JTable table =(JTable) mouseEvent.getSource();
 	            	Point point = mouseEvent.getPoint();
 			        int row = table.rowAtPoint(point);
-	            	Offer o=(Offer) tableModelProducts.getValueAt(row, 3);
+	            	Offer o=(Offer) tableModelProducts.getValueAt(row, 4);
 		            new ShowOfferGUI(o,usuario);
 	            }
 	        }

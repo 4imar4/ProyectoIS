@@ -82,5 +82,5 @@ public interface BLFacade  {
 	public Transaccion recargarSaldo(String email, float cantidad);
 	public List<Transaccion> getTransacciones(String email);
 	public float getSaldo(String email);
-
+	public void aceptarOferta(Offer o);
 }

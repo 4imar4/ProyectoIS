@@ -16,19 +16,19 @@ public class Offer implements Serializable{  //Implementamos Serializable para p
 	private Buyer buyer; 	//email del comprador, para evitar problemas de serialización, ya que un objeto de tipo User podría tener una lista de ofertas, lo que podría generar un bucle infinito al intentar serializarlo
 	private float offeredPrice; //precio ofrecido por el comprador
 	
-	private boolean accepted; 	//indica si la oferta ha sido aceptada o no, por defecto es false, cuando el vendedor acepta la oferta se cambia a true
+	private int accepted; 	//indica si la oferta ha sido aceptada 1 o no -1 o si esta pendiente 0
 	@OneToMany
 	private Sale sale;
 	
 	public Offer() {
 		super();
-		accepted=false;
+		accepted=0;
 	}
 	public Offer(Buyer buyer, float offeredPrice, Sale sale) {
 		super();
 		this.buyer = buyer;
 		this.offeredPrice = offeredPrice;
-		this.accepted = false;
+		this.accepted = 0;
 		this.sale = sale;
 	}
 
@@ -50,11 +50,11 @@ public class Offer implements Serializable{  //Implementamos Serializable para p
 		this.offeredPrice = offeredPrice;
 	}
 
-	public boolean isAccepted() {
+	public int getAccepted() {
 		return accepted;
 	}
 
-	public void setAccepted(boolean accepted) {
+	public void setAccepted(int accepted) {
 		this.accepted = accepted;
 	}
 
@@ -91,6 +91,21 @@ public class Offer implements Serializable{  //Implementamos Serializable para p
 	public String toString() {
 		return "ID de la oferta (" + offerId + "), sale (" + sale.toString() + "), buyer (" + buyer.toString()
 				+ "), offeredPrice(" + offeredPrice + ") accepted=" + accepted;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(offerId);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Offer other = (Offer) obj;
+		return Objects.equals(offerId, other.offerId);
 	}
 	
 }

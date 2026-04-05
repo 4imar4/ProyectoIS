@@ -44,6 +44,7 @@ public class ShowOfferGUI extends JFrame {
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	DefaultComboBoxModel<String> statusOptions = new DefaultComboBoxModel<String>();
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
+	private JButton jButtonAceptar = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Aceptar"));
 	private JLabel jLabelMsg = new JLabel();
 	private JLabel jLabelError = new JLabel();
 	private JLabel statusField=new JLabel();
@@ -76,7 +77,7 @@ public class ShowOfferGUI extends JFrame {
 
 		
 		scrollPaneEvents.setBounds(new Rectangle(25, 44, 346, 116));
-		jButtonClose.setBounds(new Rectangle(16, 268, 114, 30));
+		jButtonClose.setBounds(new Rectangle(212, 275, 92, 35));
 		jButtonClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				thisFrame.setVisible(false);			}
@@ -163,6 +164,18 @@ public class ShowOfferGUI extends JFrame {
 		textFieldPriceComp.setColumns(10);
 		
 		setVisible(true);
+		
+		if(us instanceof Seller) {
+			jButtonAceptar.setBounds(new Rectangle(16, 268, 114, 30));
+			jButtonAceptar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					BLFacade facade = MainGUI.getBusinessLogic();
+					facade.aceptarOferta(offer);
+					thisFrame.setVisible(false);
+				}
+			});
+			getContentPane().add(jButtonAceptar);
+		}
 		
 	}	 
 	public BufferedImage rescale(BufferedImage originalImage)

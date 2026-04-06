@@ -14,16 +14,20 @@ public class Transaccion implements Serializable {
     private float cantidad;
     private String tipo; // RECARGA o COBRO
     private String descripcion;
+    private float saldoAnterior;
+    private float nuevoSaldo;
     
     @ManyToOne
     private User usuario;
 
-    public Transaccion(float cantidad, String tipo, String descripcion, User usuario) {
+    public Transaccion(float cantidad, String tipo, String descripcion, User usuario, float saldoAnterior, float nuevoSaldo) {
         this.fecha = new Date();
         this.cantidad = cantidad;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.usuario = usuario;
+        this.saldoAnterior=saldoAnterior;
+        this.nuevoSaldo=nuevoSaldo;
     }
 
 	public Integer getIdTransaccion() {
@@ -72,6 +76,22 @@ public class Transaccion implements Serializable {
 
 	public void setUsuario(User usuario) {
 		this.usuario = usuario;
+	}
+
+	public float getSaldoAnterior() {
+		return saldoAnterior;
+	}
+
+	public void setSaldoAnterior(float saldoAnterior) {
+		this.saldoAnterior = saldoAnterior;
+	}
+
+	public float getNuevoSaldo() {
+		return nuevoSaldo;
+	}
+
+	public void setNuevoSaldo(float nuevoSaldo) {
+		this.nuevoSaldo = nuevoSaldo;
 	}
 
     

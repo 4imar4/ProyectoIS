@@ -165,16 +165,16 @@ public class BLFacadeImplementation  implements BLFacade {
     	}
     }
     
-	public List<Offer> getOffers(User usuario){
+	public List<Offer> getOffers(User usuario, String desc){
 		dbManager.open();
-		List<Offer>  rides=dbManager.getOffers((Seller) usuario);
+		List<Offer>  rides=dbManager.getOffers((Seller) usuario,desc);
 		dbManager.close();
 		return rides;
 	}
 	
-	public List<Offer> getOffersComprador(User usuario){
+	public List<Offer> getOffersComprador(User usuario, String desc){
 		dbManager.open();
-		List<Offer>  rides=dbManager.getOffersComprador((Buyer) usuario);
+		List<Offer>  rides=dbManager.getOffersComprador((Buyer) usuario, desc);
 		dbManager.close();
 		return rides;
 	}

@@ -65,6 +65,8 @@ public class WalletGUI extends JFrame {
         getContentPane().add(lblMensaje);
 
         actualizarDatos();
+		tableHistorial.setEnabled(false);
+
 
         btnRecargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

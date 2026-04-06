@@ -87,6 +87,7 @@ public class AcceptSalesGUI extends JFrame {
 		jTextFieldSearch.setBounds(52, 56, 357, 26);
 		getContentPane().add(jTextFieldSearch);
 		jTextFieldSearch.setColumns(10);
+		//jTextFieldSearch.setVisible(false);
 		
 		 jButtonSearch.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
@@ -96,7 +97,7 @@ public class AcceptSalesGUI extends JFrame {
 
 					BLFacade facade = MainGUI.getBusinessLogic();
 
-					List<domain.Offer> offers=facade.getOffers(usuario);
+					List<domain.Offer> offers=facade.getOffers(usuario,jTextFieldSearch.getText());
 
 					if (offers.isEmpty() ) jLabelProducts.setText(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.NoProducts"));
 					else jLabelProducts.setText(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.Products"));

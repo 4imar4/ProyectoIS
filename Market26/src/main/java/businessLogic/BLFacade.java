@@ -77,8 +77,8 @@ public interface BLFacade  {
 	public User getUsuario(String correo);
 	public boolean registrarse(String correo, String contrasena, String tipo,String nombre);
 	public boolean anadirCompra(String ofertTexto,Sale s,Buyer comprador) throws NumberFormatException, Exception;
-	public List<Offer> getOffers(User usuario);
-	public List<Offer> getOffersComprador(User usuario);
+	public List<Offer> getOffers(User usuario, String desc);
+	public List<Offer> getOffersComprador(User usuario, String desc);
 	public Transaccion recargarSaldo(String email, float cantidad);
 	public List<Transaccion> getTransacciones(String email);
 	public float getSaldo(String email);

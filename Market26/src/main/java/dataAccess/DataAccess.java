@@ -283,12 +283,13 @@ public class DataAccess  {
 		db.getTransaction().commit();	
 	}
 	
-	public List<Offer> getOffers(Seller se) {
+	public List<Offer> getOffers(Seller se, String desc) {
 		System.out.println(">> DataAccess: getProducts=> ");
 		List<Offer> res = new ArrayList<Offer>();	
-		TypedQuery<Offer> query = db.createQuery("SELECT o FROM Offer o JOIN o.sale s WHERE s.seller.email = ?1",Offer.class);   
+		TypedQuery<Offer> query = db.createQuery("SELECT o FROM Offer o JOIN o.sale s WHERE s.seller.email = ?1 AND s.title LIKE ?2",Offer.class);   
 		query.setParameter(1, se.getEmail());
-		
+		query.setParameter(2, "%"+desc+"%");
+
 		List<Offer> offers = query.getResultList();
 	 	 for (Offer offer:offers){
 	 		if(offer.getAccepted()==0) {
@@ -299,11 +300,12 @@ public class DataAccess  {
 	 	return res;
 	}
 	
-	public List<Offer> getOffersComprador(Buyer bu) {
+	public List<Offer> getOffersComprador(Buyer bu, String desc) {
 		System.out.println(">> DataAccess: getProducts=> ");
 		List<Offer> res = new ArrayList<Offer>();	
-		TypedQuery<Offer> query = db.createQuery("SELECT o FROM Offer o JOIN o.sale s",Offer.class);   
-		
+		TypedQuery<Offer> query = db.createQuery("SELECT o FROM Offer o JOIN o.sale s WHERE s.title LIKE ?1",Offer.class);   
+		query.setParameter(1, "%"+desc+"%");
+
 		List<Offer> offers = query.getResultList();
 	 	 for (Offer offer:offers){
 	 		 if(offer.getBuyer().getEmail().equals(bu.getEmail())) {
@@ -321,25 +323,26 @@ public class DataAccess  {
 	    User comprador = db.find(User.class, o.getBuyer().getEmail());
 	    User vendedor = db.find(User.class, v.getSeller().getEmail());
 	    float precioFinal = o.getOfferedPrice();
+	    float a=comprador.getSaldo();
 	    comprador.setSaldo(comprador.getSaldo() - precioFinal);
-	    Transaccion pago = new Transaccion(precioFinal, "COBRO", "Pago por: " + v.getTitle(), comprador);
-	    db.persist(pago);
+	    comprador.addTransaccion(precioFinal, "COBRO", "Pago por: " + v.getTitle(), a, a-precioFinal);
+	    db.persist(comprador);
+	    float b=vendedor.getSaldo();
 	    vendedor.setSaldo(vendedor.getSaldo() + precioFinal);
-	    Transaccion ingreso = new Transaccion(precioFinal, "INGRESO", "Venta de: " + v.getTitle(), vendedor);
-	    db.persist(ingreso);
+	    vendedor.addTransaccion(precioFinal, "INGRESO", "Venta de: " + v.getTitle(), b, b+precioFinal);
+	    db.persist(vendedor);
 	    //fin kailai------------------------------------------------------------------------------------------
 	    
-	    //Sale s=o.getSale();
-	    Sale s = db.find(Sale.class, o.getSale().getSaleNumber());
-	    for(Offer of:s.getOfertas()) {
+	    //Sale s = db.find(Sale.class, o.getSale().getSaleNumber());
+	    for(Offer of:v.getOfertas()) {
 	    	if(of.equals(o)) {
 	    		of.setAccepted(1);
 	    	}else {
 	    		of.setAccepted(-1);
 	    	}
 	    }
-	    s.setVendido(true);
-	    db.persist(s);
+	    v.setVendido(true);
+	    db.persist(v);
 		db.getTransaction().commit();	
 	}
 	
@@ -350,9 +353,10 @@ public class DataAccess  {
         User u = db.find(User.class, email); 
         
         if (u != null) {
+        	float a=u.getSaldo();
             u.setSaldo(u.getSaldo() + cantidad);
-            Transaccion t = new Transaccion(cantidad, "RECARGA", "Operación exitosa", u);
-            db.persist(t);
+            Transaccion t=u.addTransaccion(cantidad, "RECARGA", "Recarga exitosa", a, a+cantidad);
+            db.persist(u);
             db.getTransaction().commit();
             return t;
         }

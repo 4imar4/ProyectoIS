@@ -51,7 +51,7 @@ public class CarritoGUI extends JFrame {
 		thisFrame=this;
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(700, 500));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.FindProducts"));
+		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Title")+usuario.getEmail());
 		jLabelProducts.setBounds(52, 108, 427, 16);
 		this.getContentPane().add(jLabelProducts);
 
@@ -91,7 +91,7 @@ public class CarritoGUI extends JFrame {
 		jTextFieldSearch.setBounds(52, 56, 357, 26);
 		getContentPane().add(jTextFieldSearch);
 		jTextFieldSearch.setColumns(10);
-		
+		//jTextFieldSearch.setVisible(false);
 		 jButtonSearch.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		try {
@@ -100,7 +100,7 @@ public class CarritoGUI extends JFrame {
 
 					BLFacade facade = MainGUI.getBusinessLogic();
 
-					List<domain.Offer> offers=facade.getOffersComprador(usuario);
+					List<domain.Offer> offers=facade.getOffersComprador(usuario,jTextFieldSearch.getText());
 
 					if (offers.isEmpty() ) jLabelProducts.setText(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.NoProducts"));
 					else jLabelProducts.setText(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.Products"));

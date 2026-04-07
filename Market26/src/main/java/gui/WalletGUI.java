@@ -73,10 +73,14 @@ public class WalletGUI extends JFrame {
 				try {
 					float cantidad = Float.parseFloat(txtCantidad.getText());
 					if (cantidad > 0) {
-						facade.recargarSaldo(userEmail, cantidad);
-						txtCantidad.setText("");
-						actualizarDatos(); 
-						lblMensaje.setText(ResourceBundle.getBundle("Etiquetas").getString("WalletGUI.MsgExito") + cantidad + " €");
+						PagoGUI pagoDialog = new PagoGUI(WalletGUI.this, cantidad);
+						pagoDialog.setVisible(true);
+						if (pagoDialog.isPagoAprobado()) {
+							facade.recargarSaldo(userEmail, cantidad);
+							txtCantidad.setText("");
+							actualizarDatos(); 
+							lblMensaje.setText(ResourceBundle.getBundle("Etiquetas").getString("WalletGUI.MsgExito") + cantidad + " €");
+						}
 					} else {
 						lblMensaje.setText(ResourceBundle.getBundle("Etiquetas").getString("WalletGUI.MsgErrorCero"));
 					}

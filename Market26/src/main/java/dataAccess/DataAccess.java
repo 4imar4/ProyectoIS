@@ -383,6 +383,19 @@ public class DataAccess  {
 
 //fin kailai----------------------------------------------------------------------------------------------------------------------------
 	
+ // kailai -----------------------------------------------------------------------------------------------------------------------------
+    public float getSumaOfertasPendientes(String email) {
+        TypedQuery<Double> query = db.createQuery(
+            "SELECT SUM(o.offeredPrice) FROM Offer o WHERE o.buyer.email = ?1 AND o.accepted = 0", 
+            Double.class
+        );
+        query.setParameter(1, email);
+        
+        Double result = query.getSingleResult();
+        return result != null ? result.floatValue() : 0.0f;
+    }
+    // fin kailai -----------------------------------------------------------------------------------------------------------------------
+    
 	public void close(){
 		db.close();
 		System.out.println("DataAcess closed");

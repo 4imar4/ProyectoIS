@@ -152,9 +152,10 @@ public class BLFacadeImplementation  implements BLFacade {
     		dbManager.open();
     		float saldoActual = dbManager.getSaldo(comprador.getEmail());
     		//kailai--------------------------------------------------------------------------------------
-    		if (saldoActual < oferta) {
+    		float sumaPendiente = dbManager.getSumaOfertasPendientes(comprador.getEmail());
+    		if (saldoActual < (sumaPendiente + oferta)) {
     			dbManager.close();
-    			throw new Exception("Saldo insuficiente. Tu saldo es de " + saldoActual + " €.");
+    			throw new Exception("Saldo insuficiente. Saldo disponible: " + (saldoActual-sumaPendiente) + " €.");
     		}
     		//fin kailai----------------------------------------------------------------------------------
     		dbManager.createOferta(s,oferta,comprador);

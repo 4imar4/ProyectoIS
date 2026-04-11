@@ -317,8 +317,7 @@ public class DataAccess  {
 	
 	public void aceptarOferta(Offer o){	
 		db.getTransaction().begin();
-		
-		//kailai---------------------------------------------------------------------------------------------
+	
 	    Sale v = db.find(Sale.class, o.getSale().getSaleNumber()); 
 	    User comprador = db.find(User.class, o.getBuyer().getEmail());
 	    User vendedor = db.find(User.class, v.getSeller().getEmail());
@@ -331,9 +330,7 @@ public class DataAccess  {
 	    vendedor.setSaldo(vendedor.getSaldo() + precioFinal);
 	    vendedor.addTransaccion(precioFinal, "INGRESO", "Venta de: " + v.getTitle(), b, b+precioFinal);
 	    db.persist(vendedor);
-	    //fin kailai------------------------------------------------------------------------------------------
 	    
-	    //Sale s = db.find(Sale.class, o.getSale().getSaleNumber());
 	    for(Offer of:v.getOfertas()) {
 	    	if(of.equals(o)) {
 	    		of.setAccepted(1);
@@ -346,7 +343,6 @@ public class DataAccess  {
 		db.getTransaction().commit();	
 	}
 	
-	//kailai-----------------------------------------------------------------------------------------------------------------------------
 	
 	public Transaccion recargarSaldo(String email, float cantidad) {
         db.getTransaction().begin();

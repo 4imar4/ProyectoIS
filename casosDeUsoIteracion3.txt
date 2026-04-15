@@ -1,0 +1,4 @@
+Eliminar oferta realizada (el comprador si la oferta esta todavia pendiente la puede borrar)
+Devolver producto comprado
+Mandar correo electronico
+Ver correo electronico

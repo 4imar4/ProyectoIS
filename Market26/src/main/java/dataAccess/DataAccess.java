@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -348,12 +349,23 @@ public class DataAccess  {
 		db.getTransaction().begin();
 				
 		Sale s = db.find(Sale.class, o.getSale().getSaleNumber());
-		for(Offer of:s.getOfertas()) {
-			if(of.equals(o)) {
-		    	of.setAccepted(-1);
-			}
+		Iterator<Offer> it = s.getOfertas().iterator();
+		while (it.hasNext()) {
+            Offer of = it.next();
+            if(of.equals(o)) {
+				it.remove();
+		    	db.remove(of);			
+		    }
 		}
-		db.persist(s);		
+		
+		
+		/*for(Offer of:s.getOfertas()) {
+			if(of.equals(o)) {
+				s.getOfertas().remove(of);
+		    	db.remove(of);			
+		    }
+		}*/
+		//db.persist(s);		
 		db.getTransaction().commit();
 	}
 		

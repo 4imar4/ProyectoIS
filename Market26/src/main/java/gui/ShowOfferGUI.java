@@ -45,6 +45,7 @@ public class ShowOfferGUI extends JFrame {
 	DefaultComboBoxModel<String> statusOptions = new DefaultComboBoxModel<String>();
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 	private JButton jButtonAceptar = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Aceptar"));
+	private JButton jButtonEliminarOfertaPendiente = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowOfferGUI.EliminarOferta")); //Parte 3, eliminar oferta pendiente
 	private JLabel jLabelMsg = new JLabel();
 	private JLabel jLabelError = new JLabel();
 	private JLabel statusField=new JLabel();
@@ -77,12 +78,17 @@ public class ShowOfferGUI extends JFrame {
 
 		
 		scrollPaneEvents.setBounds(new Rectangle(25, 44, 346, 116));
-		jButtonClose.setBounds(new Rectangle(212, 275, 92, 35));
+		jButtonClose.setBounds(new Rectangle(23, 257, 92, 35));
 		jButtonClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				thisFrame.setVisible(false);			}
 		});
 
+		//Parte 3, eliminar oferta pendiente
+		jButtonEliminarOfertaPendiente.setBounds(new Rectangle(6, 296, 130, 26));
+		jButtonEliminarOfertaPendiente.setVisible(false);
+		getContentPane().add(jButtonEliminarOfertaPendiente);
+				
 		jLabelMsg.setBounds(new Rectangle(275, 214, 305, 20));
 		jLabelMsg.setForeground(Color.red);
 
@@ -175,6 +181,19 @@ public class ShowOfferGUI extends JFrame {
 				}
 			});
 			getContentPane().add(jButtonAceptar);
+		}
+		
+		
+		if(us instanceof Buyer && offer.getAccepted()==0) {
+		    jButtonEliminarOfertaPendiente.setVisible(true);
+
+		    jButtonEliminarOfertaPendiente.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		            BLFacade facade = MainGUI.getBusinessLogic();
+		            facade.eliminarOfertaPendiente(offer);
+		            thisFrame.setVisible(false);
+		        }
+		    });
 		}
 		
 	}	 

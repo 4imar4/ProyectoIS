@@ -343,6 +343,20 @@ public class DataAccess  {
 		db.getTransaction().commit();	
 	}
 	
+	//Parte 3, eliminar oferta pendiente de un comprador
+	public void eliminarOfertaPendiente(Offer o) {
+		db.getTransaction().begin();
+				
+		Sale s = db.find(Sale.class, o.getSale().getSaleNumber());
+		for(Offer of:s.getOfertas()) {
+			if(of.equals(o)) {
+		    	of.setAccepted(-1);
+			}
+		}
+		db.persist(s);		
+		db.getTransaction().commit();
+	}
+		
 	
 	public Transaccion recargarSaldo(String email, float cantidad) {
         db.getTransaction().begin();

@@ -209,6 +209,13 @@ public class BLFacadeImplementation  implements BLFacade {
     		dbManager.aceptarOferta(o);
     		dbManager.close();
     }
+	
+	//Parte 3, eliminar oferta pendiente de un comprador
+	public void eliminarOfertaPendiente(Offer o) {
+		dbManager.open();
+		dbManager.eliminarOfertaPendiente(o);
+		dbManager.close();
+	}
 
 }
 

@@ -316,6 +316,23 @@ public class DataAccess  {
 	 	return res;
 	}
 	
+	public List<Offer> getProductosComprados(Buyer bu, String desc) {
+		System.out.println(">> DataAccess: getProducts=> ");
+		List<Offer> res = new ArrayList<Offer>();	
+		TypedQuery<Offer> query = db.createQuery("SELECT o FROM Offer o JOIN o.sale s WHERE s.title LIKE ?1",Offer.class);   
+		query.setParameter(1, "%"+desc+"%");
+
+		List<Offer> offers = query.getResultList();
+	 	 for (Offer offer:offers){
+	 		 if(offer.getBuyer().getEmail().equals(bu.getEmail())) {
+	 			 if(offer.getAccepted()==1) {
+	 				 res.add(offer);
+	 			 }
+	 		 }
+		  }
+	 	return res;
+	}
+	
 	public void aceptarOferta(Offer o){	
 		db.getTransaction().begin();
 	
@@ -403,9 +420,7 @@ public class DataAccess  {
         return 0.0f;
     }
 
-//fin kailai----------------------------------------------------------------------------------------------------------------------------
 	
- // kailai -----------------------------------------------------------------------------------------------------------------------------
     public float getSumaOfertasPendientes(String email) {
         TypedQuery<Double> query = db.createQuery(
             "SELECT SUM(o.offeredPrice) FROM Offer o WHERE o.buyer.email = ?1 AND o.accepted = 0", 
@@ -416,7 +431,35 @@ public class DataAccess  {
         Double result = query.getSingleResult();
         return result != null ? result.floatValue() : 0.0f;
     }
-    // fin kailai -----------------------------------------------------------------------------------------------------------------------
+    
+    public void devolverProducto(Offer o, String motivoDev){	
+		db.getTransaction().begin();
+	
+	    Sale v = db.find(Sale.class, o.getSale().getSaleNumber()); 
+	    User comprador = db.find(User.class, o.getBuyer().getEmail());
+	    User vendedor = db.find(User.class, v.getSeller().getEmail());
+	    float precioFinal = o.getOfferedPrice();
+	    float a=comprador.getSaldo();
+	    comprador.setSaldo(comprador.getSaldo() + precioFinal);
+	    comprador.addTransaccion(precioFinal, "REINTEGRO", "Devolucion de: " + v.getTitle(), a, a+precioFinal);
+	    db.persist(comprador);
+	    float b=vendedor.getSaldo();
+	    vendedor.setSaldo(vendedor.getSaldo() - precioFinal);
+	    vendedor.addTransaccion(precioFinal, "DEVOLUCION", "Devolucion de: " + v.getTitle(), b, b-precioFinal);
+	    db.persist(vendedor);
+	    
+	    for(Offer of:v.getOfertas()) {
+	    	if(of.equals(o)) {
+	    		of.setAccepted(-2);     //podria poner que las ofertas rechazadas esten pendientes otra vez
+	    		of.setMotivoDevolucion(motivoDev);
+	    	}
+	    }
+	    v.setVendido(false);    //lo vuelvo a poner a la venta
+	    db.persist(v);
+		db.getTransaction().commit();	
+	}
+    
+    
     
 	public void close(){
 		db.close();

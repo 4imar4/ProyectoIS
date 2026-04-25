@@ -46,6 +46,8 @@ public class CarritoGUI extends JFrame {
 		texto.put(-1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Rechazado"));
 		texto.put(0, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Pendiente"));
 		texto.put(1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Aceptado"));
+		texto.put(-2, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Devuelto"));
+
 		usuario=us;
 		tableProducts.setEnabled(false);
 		thisFrame=this;

@@ -34,6 +34,8 @@ public class MainGUI extends JFrame {
 	private JButton jButtonVerCarrito = null;
 
 	private JButton jButtonAcceptQueries=null;
+	private JButton jButtonDevolverProd=null;
+
 	private JButton jButtonMiCartera;
 
     private static BLFacade appFacadeInterface;
@@ -125,6 +127,22 @@ public class MainGUI extends JFrame {
 		jButtonAcceptQueries.setVisible(false);
 		jButtonQueryQueries.setEnabled(false);
 		jButtonQueryQueries.setVisible(false);
+		
+		jButtonDevolverProd = new JButton();
+		jButtonDevolverProd.setBounds(240, 126, 240, 63);
+		jButtonDevolverProd.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.DevolverProd"));
+		jButtonDevolverProd.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				JFrame a = new ProductosCompradosGUI(usuario);
+			
+				a.setVisible(true);
+			}
+		});
+		jButtonDevolverProd.setVisible(false);
+		
+		
+		
+		
 		Seller a;
 		
 		jContentPane = new JPanel();
@@ -162,6 +180,7 @@ public class MainGUI extends JFrame {
 		});
 		jContentPane.add(jButtonSignIn);
 		jContentPane.add(jButtonAcceptQueries);
+		jContentPane.add(jButtonDevolverProd);
 		jButtonCreateQuery = new JButton();
 		jButtonCreateQuery.setBounds(0, 63, 480, 63);
 		jContentPane.add(jButtonCreateQuery);
@@ -329,9 +348,9 @@ public class MainGUI extends JFrame {
 					jLabelSelectOption.setVisible(true);
 					btnEntrar.setVisible(false);
 					btnBack.setVisible(false);
-//kailai------------------------------------------------------------------------------------------------------------------------
+
 					jButtonMiCartera.setVisible(true);
-//fin kailai--------------------------------------------------------------------------------------------------------------------
+
 					if(usuario instanceof Seller) {
 						jButtonCreateQuery.setVisible(true);
 						jButtonQueryQueries.setVisible(true);
@@ -343,11 +362,11 @@ public class MainGUI extends JFrame {
 					}else {
 						jButtonQueryQueries.setVisible(true);
 						jButtonQueryQueries.setEnabled(true);
-						jButtonQueryQueries.setBounds(0, 55, 480, 63);
+						jButtonQueryQueries.setBounds(0, 63, 480, 63);
 						jButtonVerCarrito.setVisible(true);
 						jButtonVerCarrito.setEnabled(true);
-						jButtonVerCarrito.setBounds(0, 118, 480, 63);
-						
+						jButtonVerCarrito.setBounds(0, 126, 240, 63);
+						jButtonDevolverProd.setVisible(true);
 					}
 					paintAgain();
 				}		  
@@ -433,8 +452,8 @@ public class MainGUI extends JFrame {
 							jButtonQueryQueries.setBounds(0, 55, 480, 63);
 							jButtonVerCarrito.setVisible(true);
 							jButtonVerCarrito.setEnabled(true);
-							jButtonVerCarrito.setBounds(0, 118, 480, 63);
-  
+							jButtonVerCarrito.setBounds(0, 126, 240, 63);
+							jButtonDevolverProd.setVisible(true);
 						}
 						
 						paintAgain();
@@ -496,7 +515,7 @@ public class MainGUI extends JFrame {
 		jButtonAcceptQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.AcceptSales"));
 		jButtonMiCartera.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
 		jButtonVerCarrito.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.VerCarrito"));
-
+		jButtonDevolverProd.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.DevolverProd"));
 	}
 	
 	

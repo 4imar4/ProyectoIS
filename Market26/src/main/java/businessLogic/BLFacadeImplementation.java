@@ -179,6 +179,12 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return rides;
 	}
+	public List<Offer> getProductosComprados(User usuario, String desc){
+		dbManager.open();
+		List<Offer>  rides=dbManager.getProductosComprados((Buyer) usuario, desc);
+		dbManager.close();
+		return rides;
+	}
 	
 	@Override
 	public Transaccion recargarSaldo(String email, float cantidad) {
@@ -217,5 +223,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 
+	public void devolverProducto(Offer o, String motivoDev) {
+		dbManager.open();
+		dbManager.devolverProducto(o, motivoDev);
+		dbManager.close();
+	}
+	
 }
 

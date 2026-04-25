@@ -30,6 +30,8 @@ public class ShowOfferGUI extends JFrame {
 
 	private JTextField fieldTitle=new JTextField();
 	private JTextField fieldDescription=new JTextField();
+	private JTextField textoDevolucion;
+
 	
 	JLabel labelStatus = new JLabel(); 
 
@@ -53,6 +55,7 @@ public class ShowOfferGUI extends JFrame {
 	private JLabel lblCompr;
 	private JTextField textFieldCompr;
 	private JLabel lblPriceCom;
+	private JLabel lblMotivo;
 	private JTextField textFieldPriceComp;
 	
 	public ShowOfferGUI(Offer offer,User user) {
@@ -128,6 +131,7 @@ public class ShowOfferGUI extends JFrame {
 		panel_1 = new JPanel();
 		panel_1.setBounds(318, 166, 180, 160);
 		getContentPane().add(panel_1);
+		panel_1.setVisible(true);
 		
 		labelStatus.setFont(new Font("Lucida Grande", Font.BOLD, 13));
 		labelStatus.setBounds(37, 231, 289, 16);
@@ -194,6 +198,24 @@ public class ShowOfferGUI extends JFrame {
 		            thisFrame.setVisible(false);
 		        }
 		    });
+		}
+		textoDevolucion = new JTextField();
+		textoDevolucion.setBounds(320, 200, 157, 67);
+		getContentPane().add(textoDevolucion);
+		textoDevolucion.setColumns(10);
+		textoDevolucion.setVisible(false);
+		textoDevolucion.setEditable(false);
+		
+		lblMotivo = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowOfferGUI.lblMotivo"));
+		lblMotivo.setBounds(310, 170, 101, 21);
+		getContentPane().add(lblMotivo);
+		lblMotivo.setVisible(false);
+		
+		if(offer.getAccepted()==-2) {
+			panel_1.setVisible(false);
+			textoDevolucion.setVisible(true);
+			textoDevolucion.setText(offer.getMotivoDevolucion());
+			lblMotivo.setVisible(true);
 		}
 		
 	}	 

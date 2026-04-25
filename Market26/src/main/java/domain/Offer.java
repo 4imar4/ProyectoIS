@@ -16,7 +16,8 @@ public class Offer implements Serializable{  //Implementamos Serializable para p
 	private Buyer buyer; 	//email del comprador, para evitar problemas de serialización, ya que un objeto de tipo User podría tener una lista de ofertas, lo que podría generar un bucle infinito al intentar serializarlo
 	private float offeredPrice; //precio ofrecido por el comprador
 	
-	private int accepted; 	//indica si la oferta ha sido aceptada 1 o no -1 o si esta pendiente 0
+	private int accepted; 	//indica si la oferta ha sido aceptada 1 o no -1 o si esta pendiente 0 o -2 si se ha devuelto
+	private String motivoDevolucion=null;
 	@OneToMany
 	private Sale sale;
 	
@@ -85,8 +86,12 @@ public class Offer implements Serializable{  //Implementamos Serializable para p
 		this.sale = sale;
 	}
 
-
-
+	public String getMotivoDevolucion() {
+		return motivoDevolucion;
+	}
+	public void setMotivoDevolucion(String motivoDevolucion) {
+		this.motivoDevolucion = motivoDevolucion;
+	}
 	@Override
 	public String toString() {
 		return "ID de la oferta (" + offerId + "), sale (" + sale.toString() + "), buyer (" + buyer.toString()

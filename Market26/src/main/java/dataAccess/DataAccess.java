@@ -373,16 +373,7 @@ public class DataAccess  {
 				it.remove();
 		    	db.remove(of);			
 		    }
-		}
-		
-		
-		/*for(Offer of:s.getOfertas()) {
-			if(of.equals(o)) {
-				s.getOfertas().remove(of);
-		    	db.remove(of);			
-		    }
-		}*/
-		//db.persist(s);		
+		}		
 		db.getTransaction().commit();
 	}
 		
@@ -450,11 +441,10 @@ public class DataAccess  {
 	    
 	    for(Offer of:v.getOfertas()) {
 	    	if(of.equals(o)) {
-	    		of.setAccepted(-2);     //podria poner que las ofertas rechazadas esten pendientes otra vez
+	    		of.setAccepted(-2);     
 	    		of.setMotivoDevolucion(motivoDev);
 	    	}
 	    }
-	    v.setVendido(false);    //lo vuelvo a poner a la venta
 	    db.persist(v);
 		db.getTransaction().commit();	
 	}

@@ -435,9 +435,7 @@ public class MainGUI extends JFrame {
 						btnBack.setVisible(false);
 						lblIntroNombre.setVisible(false);
 						textFieldNom.setVisible(false);
-//kailai------------------------------------------------------------------------------------------------------------------------
 						jButtonMiCartera.setVisible(true);
-//fin kailai--------------------------------------------------------------------------------------------------------------------
 						if(usuario instanceof Seller) {
 							jButtonCreateQuery.setVisible(true);
 							jButtonQueryQueries.setVisible(true);
@@ -479,7 +477,6 @@ public class MainGUI extends JFrame {
 			}
 		});
 		
-//kailai---------------------------------------------------------------------------------------------------------------------------------
 		jButtonMiCartera = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
 		jButtonMiCartera.setBounds(360, 15, 110, 30); 
 		jButtonMiCartera.setVisible(false);
@@ -493,7 +490,6 @@ public class MainGUI extends JFrame {
 			}
 		});
 		jContentPane.add(jButtonMiCartera);
-//fin kailai-------------------------------------------------------------------------------------------------------------------------------
 	}
 	
 	private void paintAgain() {

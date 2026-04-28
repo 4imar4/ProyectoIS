@@ -30,6 +30,7 @@ public class MainGUI extends JFrame {
 
 	private JPanel jContentPane = null;
 	private JButton jButtonCreateQuery = null;
+	private JButton jButtonProdDev;
 	private JButton jButtonQueryQueries = null;
 	private JButton jButtonVerCarrito = null;
 
@@ -140,8 +141,18 @@ public class MainGUI extends JFrame {
 		});
 		jButtonDevolverProd.setVisible(false);
 		
-		
-		
+		jButtonProdDev = new JButton();
+		jButtonProdDev.setBounds(240, 63, 240, 63);
+		jButtonProdDev.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ProdDev"));
+		jButtonProdDev.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				JFrame a = new ProductosCompradosGUI(usuario);
+				
+				a.setVisible(true);
+			}
+		});
+		jButtonProdDev.setVisible(false);
+
 		
 		Seller a;
 		
@@ -149,7 +160,8 @@ public class MainGUI extends JFrame {
 		jContentPane.setLayout(null);
 		jContentPane.add(jLabelSelectOption);
 		jContentPane.add(jButtonVerCarrito);
-		
+		jContentPane.add(jButtonProdDev);
+
 		jButtonSignIn = new JButton(); 
 		jButtonSignIn.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignIn"));
 		jButtonSignIn.setBounds(0, 126, 480, 63);
@@ -182,7 +194,7 @@ public class MainGUI extends JFrame {
 		jContentPane.add(jButtonAcceptQueries);
 		jContentPane.add(jButtonDevolverProd);
 		jButtonCreateQuery = new JButton();
-		jButtonCreateQuery.setBounds(0, 63, 480, 63);
+		jButtonCreateQuery.setBounds(0, 63, 240, 63);
 		jContentPane.add(jButtonCreateQuery);
 		jButtonCreateQuery.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.CreateSale"));
 		jButtonCreateQuery.addActionListener(new java.awt.event.ActionListener() {
@@ -358,6 +370,7 @@ public class MainGUI extends JFrame {
 						jButtonQueryQueries.setEnabled(true);
 						jButtonQueryQueries.setBounds(0, 126, 240, 63);
 						jButtonAcceptQueries.setVisible(true);
+						jButtonProdDev.setVisible(true);
 						
 					}else {
 						jButtonQueryQueries.setVisible(true);
@@ -443,6 +456,7 @@ public class MainGUI extends JFrame {
 							jButtonQueryQueries.setEnabled(true);
 							jButtonQueryQueries.setBounds(0, 126, 240, 63);
 							jButtonAcceptQueries.setVisible(true);
+							jButtonProdDev.setVisible(true);
 							
 						}else {
 							jButtonQueryQueries.setVisible(true);
@@ -512,6 +526,7 @@ public class MainGUI extends JFrame {
 		jButtonMiCartera.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
 		jButtonVerCarrito.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.VerCarrito"));
 		jButtonDevolverProd.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.DevolverProd"));
+		jButtonProdDev.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ProdDev"));
 	}
 	
 	

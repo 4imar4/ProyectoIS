@@ -2,6 +2,7 @@ package gui;
 
 import businessLogic.BLFacade;
 import configuration.UtilDate;
+import domain.Buyer;
 import domain.Offer;
 import domain.Sale;
 import domain.Seller;
@@ -46,6 +47,7 @@ public class ProductosCompradosGUI extends JFrame {
 		texto.put(-1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Rechazado"));
 		texto.put(0, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Pendiente"));
 		texto.put(1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Aceptado"));
+		texto.put(-2, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Devuelto"));
 		usuario=us;
 		tableProducts.setEnabled(false);
 		thisFrame=this;
@@ -99,9 +101,12 @@ public class ProductosCompradosGUI extends JFrame {
 					tableModelProducts.setColumnCount(5); // another column added to allocate product object
 
 					BLFacade facade = MainGUI.getBusinessLogic();
-
-					List<domain.Offer> offers=facade.getProductosComprados(usuario,jTextFieldSearch.getText());
-
+					List<domain.Offer> offers;
+					if(us instanceof Buyer) {
+						offers=facade.getProductosComprados(usuario,jTextFieldSearch.getText());
+					}else {
+						offers=facade.getProductosDevueltos(usuario,jTextFieldSearch.getText());
+					}
 					if (offers.isEmpty() ) jLabelProducts.setText(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.NoProducts"));
 					else jLabelProducts.setText(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.Products"));
 					for (domain.Offer offer:offers){

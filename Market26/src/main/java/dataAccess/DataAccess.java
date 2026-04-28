@@ -333,6 +333,23 @@ public class DataAccess  {
 	 	return res;
 	}
 	
+	public List<Offer> getProductosDevueltos(Seller se, String desc) {
+		System.out.println(">> DataAccess: getProducts=> ");
+		List<Offer> res = new ArrayList<Offer>();	
+		TypedQuery<Offer> query = db.createQuery("SELECT o FROM Offer o JOIN o.sale s WHERE s.title LIKE ?1",Offer.class);   
+		query.setParameter(1, "%"+desc+"%");
+
+		List<Offer> offers = query.getResultList();
+	 	 for (Offer offer:offers){
+	 		 if(offer.getSale().getSeller().getEmail().equals(se.getEmail())) {
+	 			 if(offer.getAccepted()==-2) {
+	 				 res.add(offer);
+	 			 }
+	 		 }
+		  }
+	 	return res;
+	}
+	
 	public void aceptarOferta(Offer o){	
 		db.getTransaction().begin();
 	

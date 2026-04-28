@@ -86,5 +86,6 @@ public interface BLFacade  {
 	public void eliminarOfertaPendiente(Offer o); //Parte 3, eliminar oferta pendiente de un comprador
 	public List<Offer> getProductosComprados(User usuario, String desc);
 	public void devolverProducto(Offer o, String motivoDev);
+	public List<Offer> getProductosDevueltos(User usuario, String desc);
 
 }

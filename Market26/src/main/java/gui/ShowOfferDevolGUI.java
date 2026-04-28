@@ -56,6 +56,7 @@ public class ShowOfferDevolGUI extends JFrame {
 	private JLabel lblPriceCom;
 	private JTextField textFieldPriceComp;
 	private JTextField textoDevolucion;
+	private JLabel lblMotivo;
 	
 	public ShowOfferDevolGUI(Offer offer,User user) {
 		this.us=user;
@@ -179,9 +180,18 @@ public class ShowOfferDevolGUI extends JFrame {
 		textoDevolucion.setBounds(320, 200, 157, 67);
 		getContentPane().add(textoDevolucion);
 		textoDevolucion.setColumns(10);
-		textoDevolucion.setVisible(false);
-		setVisible(true);
 		
+		lblMotivo = new JLabel();
+		lblMotivo.setText(ResourceBundle.getBundle("Etiquetas").getString("ShowOfferGUI.lblMotivo"));
+		lblMotivo.setBounds(300, 175, 60, 17);
+		getContentPane().add(lblMotivo);
+		lblMotivo.setVisible(false);
+		
+		textoDevolucion.setVisible(false);
+		textoDevolucion.setEditable(true);
+
+		setVisible(true);
+		if(user instanceof Buyer) {
 		    jButtonDevolver.setVisible(true);
 
 		    jButtonDevolver.addActionListener(new ActionListener() {
@@ -189,6 +199,8 @@ public class ShowOfferDevolGUI extends JFrame {
 		    		panel_1.setVisible(false);
 		    		textoDevolucion.setVisible(true);
 		    		jButtonDevolver2.setVisible(true);
+		    		lblMotivo.setVisible(true);
+				    jButtonDevolver.setVisible(false);
 		        }
 		    });
 		    jButtonDevolver2.setVisible(false);
@@ -202,6 +214,13 @@ public class ShowOfferDevolGUI extends JFrame {
 		            
 		        }
 		    });
+		}else {
+			panel_1.setVisible(false);
+    		textoDevolucion.setVisible(true);
+    		lblMotivo.setVisible(true);
+    		textoDevolucion.setText(offer.getMotivoDevolucion());
+    		textoDevolucion.setEditable(false);
+		}
 		    
 		    
 		    

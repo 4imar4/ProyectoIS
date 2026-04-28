@@ -176,7 +176,7 @@ public class ShowOfferGUI extends JFrame {
 		setVisible(true);
 		
 		if(us instanceof Seller) {
-			jButtonAceptar.setBounds(new Rectangle(16, 268, 114, 30));
+			jButtonAceptar.setBounds(new Rectangle(6, 296, 130, 26));
 			jButtonAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					BLFacade facade = MainGUI.getBusinessLogic();

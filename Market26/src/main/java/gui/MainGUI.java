@@ -134,7 +134,7 @@ public class MainGUI extends JFrame {
 		jButtonDevolverProd.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.DevolverProd"));
 		jButtonDevolverProd.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new ProductosCompradosGUI(usuario);
+				JFrame a = new DevolverGUI(usuario);
 			
 				a.setVisible(true);
 			}
@@ -146,7 +146,7 @@ public class MainGUI extends JFrame {
 		jButtonProdDev.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ProdDev"));
 		jButtonProdDev.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				JFrame a = new ProductosCompradosGUI(usuario);
+				JFrame a = new DevolverGUI(usuario);
 				
 				a.setVisible(true);
 			}

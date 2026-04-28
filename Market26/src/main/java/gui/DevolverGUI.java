@@ -18,7 +18,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 
-public class ProductosCompradosGUI extends JFrame {
+public class DevolverGUI extends JFrame {
 	User usuario;
 	private static final long serialVersionUID = 1L;
 	private final JLabel jLabelProducts = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("QuerySalesGUI.Products")); 
@@ -43,7 +43,7 @@ public class ProductosCompradosGUI extends JFrame {
 	private JTextField jTextFieldSearch;
 	private HashMap<Integer, String> texto=new HashMap<Integer, String>();
 
-	public ProductosCompradosGUI(User us) {
+	public DevolverGUI(User us) {
 		texto.put(-1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Rechazado"));
 		texto.put(0, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Pendiente"));
 		texto.put(1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Aceptado"));
@@ -53,7 +53,11 @@ public class ProductosCompradosGUI extends JFrame {
 		thisFrame=this;
 		this.getContentPane().setLayout(null);
 		this.setSize(new Dimension(700, 500));
-		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("ProductosCompradosGUI.Title")+usuario.getEmail());
+		if(us instanceof Buyer) {
+			this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("DevolverGUI.Title")+usuario.getEmail());
+		}else {
+			this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("DevolverGUI.Title2")+usuario.getEmail());
+		}
 		jLabelProducts.setBounds(52, 108, 427, 16);
 		this.getContentPane().add(jLabelProducts);
 

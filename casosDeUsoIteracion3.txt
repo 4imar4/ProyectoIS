@@ -1,4 +1,8 @@
 Eliminar oferta realizada (el comprador si la oferta esta todavia pendiente la puede borrar)
-Devolver producto comprado
+Devolver producto comprado (comprador)
+Ver productos devueltos (vendedor)
 Mandar correo electronico
 Ver correo electronico
+
+Clases de dominio:
+Correo

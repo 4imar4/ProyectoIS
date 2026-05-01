@@ -253,6 +253,14 @@ public class BLFacadeImplementation  implements BLFacade {
         dbManager.close();
         return res;
     }
+    
+    @Override
+    public List<Mensaje> getMensajesEnviados(String emailUsuario) {
+        dbManager.open();
+        List<Mensaje> res = dbManager.getMensajesEnviados(emailUsuario);
+        dbManager.close();
+        return res;
+    }
 	//---------------------------------------------------------------------------------------------------------------------------
 	
 }

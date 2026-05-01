@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import domain.Mensaje;
@@ -14,6 +15,9 @@ public class BandejaEntradaGUI extends JFrame {
     private DefaultTableModel tableModel;
     private String miEmail;
     private List<Mensaje> misMensajes;
+    private JRadioButton rdbtnRecibidos;
+    private JRadioButton rdbtnEnviados;
+    private final ButtonGroup buttonGroup = new ButtonGroup();
 
     public BandejaEntradaGUI(String email) {
         this.miEmail = email;
@@ -46,16 +50,36 @@ public class BandejaEntradaGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tableMensajes);
         scrollPane.setBounds(20, 60, 540, 280);
         getContentPane().add(scrollPane);
-
+        
+        rdbtnEnviados = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("BandejaEntradaGUI.botEnviados"));
+        buttonGroup.add(rdbtnEnviados);
+        rdbtnEnviados.setBounds(322, 25, 102, 20);
+        getContentPane().add(rdbtnEnviados);
+        rdbtnEnviados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarMensajes();				
+			}
+		});
+        
+        
+        rdbtnRecibidos = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("BandejaEntradaGUI.botRecibidos"));
+        buttonGroup.add(rdbtnRecibidos);
+        rdbtnRecibidos.setSelected(true);
+        rdbtnRecibidos.setBounds(218, 25, 102, 20);
+        getContentPane().add(rdbtnRecibidos);
+        rdbtnRecibidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarMensajes();				
+			}
+		});
         cargarMensajes();
-
         tableMensajes.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     int row = tableMensajes.getSelectedRow();
                     if (row != -1) {
                     	Mensaje msgSeleccionado = misMensajes.get(row);
-                    	new LeerMensajeGUI(miEmail, msgSeleccionado).setVisible(true);
+                    	new LeerMensajeGUI(miEmail, msgSeleccionado,rdbtnRecibidos.isSelected()).setVisible(true);
                     }
                 }
             }
@@ -64,17 +88,31 @@ public class BandejaEntradaGUI extends JFrame {
 
     private void cargarMensajes() {
         BLFacade facade = MainGUI.getBusinessLogic();
-        misMensajes = facade.getMensajesRecibidos(miEmail);
-        
-        tableModel.setRowCount(0); 
-        for (Mensaje m : misMensajes) {
-            Object[] row = {
-                m.getId(), 
-                m.getEmisor().getEmail(), 
-                m.getAsunto(), 
-                m.getFechaEnvio().toString()
-            };
-            tableModel.addRow(row);
+        if(rdbtnRecibidos.isSelected()) {
+            misMensajes = facade.getMensajesRecibidos(miEmail);
+            tableModel.setRowCount(0); 
+            for (Mensaje m : misMensajes) {
+                Object[] row = {
+                    m.getId(), 
+                    m.getEmisor().getEmail(), 
+                    m.getAsunto(), 
+                    m.getFechaEnvio().toString()
+                };
+                tableModel.addRow(row);
+            }
+        }else {
+        	misMensajes=facade.getMensajesEnviados(miEmail);
+        	tableModel.setRowCount(0); 
+            for (Mensaje m : misMensajes) {
+                Object[] row = {
+                    m.getId(), 
+                    m.getDestinatario().getEmail(), 
+                    m.getAsunto(), 
+                    m.getFechaEnvio().toString()
+                };
+                tableModel.addRow(row);
+            }
         }
+        
     }
 }

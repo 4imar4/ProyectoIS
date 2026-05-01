@@ -490,13 +490,26 @@ public class DataAccess  {
         
         Mensaje msg = new Mensaje(emisor, receptor, asunto, cuerpo);
         msg.setId(nuevoID);
+        emisor.addMensajeEnviado(msg);
+        receptor.addMensajeRecibido(msg);
         db.persist(msg);
+        db.persist(emisor);
+        db.persist(receptor);
         db.getTransaction().commit();
     }
 
     public List<Mensaje> getMensajesRecibidos(String emailUsuario) {
         TypedQuery<Mensaje> query = db.createQuery(
             "SELECT m FROM Mensaje m WHERE m.destinatario.email = ?1 ORDER BY m.fechaEnvio DESC", 
+            Mensaje.class
+        );
+        query.setParameter(1, emailUsuario);
+        return query.getResultList();
+    }
+    
+    public List<Mensaje> getMensajesEnviados(String emailUsuario) {
+        TypedQuery<Mensaje> query = db.createQuery(
+            "SELECT m FROM Mensaje m WHERE m.emisor.email = ?1 ORDER BY m.fechaEnvio DESC", 
             Mensaje.class
         );
         query.setParameter(1, emailUsuario);

@@ -22,6 +22,12 @@ public class User implements Serializable{
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Transaccion> transacciones=new ArrayList<Transaccion>();
 	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<Mensaje> mensajesRecibidos=new ArrayList<Mensaje>();
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	private List<Mensaje> mensajesEnviados=new ArrayList<Mensaje>();
+	
 	public User(String email, String name,String contrasena) {
 	    this.email = email;
 	    this.name = name;
@@ -68,6 +74,12 @@ public class User implements Serializable{
         return t;
 	}
 	
+	public void addMensajeEnviado(Mensaje msg)  {
+        mensajesEnviados.add(msg);
+	}
 	
+	public void addMensajeRecibido(Mensaje msg)  {
+        mensajesRecibidos.add(msg);
+	}
 
 }

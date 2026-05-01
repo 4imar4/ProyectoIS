@@ -510,7 +510,8 @@ public class MainGUI extends JFrame {
 			}
 		});
 		
-		jButtonMiCartera = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
+		jButtonMiCartera = new JButton();
+		jButtonMiCartera.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
 		jButtonMiCartera.setBounds(360, 15, 110, 30); 
 		jButtonMiCartera.setVisible(false);
 		jButtonMiCartera.addActionListener(new ActionListener() {
@@ -524,7 +525,8 @@ public class MainGUI extends JFrame {
 		});
 		jContentPane.add(jButtonMiCartera);
 		
-		JButtonbtnMensajes = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MisMensajes"));
+		JButtonbtnMensajes = new JButton();
+		JButtonbtnMensajes.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MisMensajes"));
 		JButtonbtnMensajes.setBounds(10, 15, 110, 30); 
 		JButtonbtnMensajes.setVisible(false);
 

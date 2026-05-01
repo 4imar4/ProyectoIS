@@ -9,10 +9,12 @@ import domain.Mensaje;
 public class LeerMensajeGUI extends JFrame {
     private String miEmail;
     private Mensaje msgActual;
+    private boolean mostrarBoton;
 
-    public LeerMensajeGUI(String miEmail, Mensaje msg) {
+    public LeerMensajeGUI(String miEmail, Mensaje msg, boolean mostrarBoton) {
         this.miEmail = miEmail;
         this.msgActual = msg;
+        this.mostrarBoton=mostrarBoton;
         
         setTitle(ResourceBundle.getBundle("Etiquetas").getString("LeerMensaje.Titulo"));
         setBounds(150, 150, 500, 400);
@@ -41,5 +43,6 @@ public class LeerMensajeGUI extends JFrame {
             dispose(); 
         });
         getContentPane().add(btnResponder);
+        btnResponder.setVisible(mostrarBoton);
     }
 }

@@ -90,5 +90,7 @@ public interface BLFacade  {
 	public List<Offer> getProductosDevueltos(User usuario, String desc);
 	public void enviarMensaje(String emailRemitente, String emailDestinatario, String asunto, String cuerpo) throws Exception;
 	public List<Mensaje> getMensajesRecibidos(String emailUsuario);
+	public List<Mensaje> getMensajesEnviados(String emailUsuario);
+
 
 }

@@ -26,6 +26,7 @@ import domain.Buyer;
 import domain.Offer;
 import domain.Sale;
 import domain.Transaccion;
+import domain.Mensaje;
 import exceptions.FileNotUploadedException;
 import exceptions.MustBeLaterThanTodayException;
 import exceptions.SaleAlreadyExistException;
@@ -466,7 +467,43 @@ public class DataAccess  {
 		db.getTransaction().commit();	
 	}
     
+ //-----------------------------------------------------------------------------------------------------------------------------------   
+    public void enviarMensaje(String emailEmisor, String emailReceptor, String asunto, String cuerpo) throws Exception {
+        db.getTransaction().begin();
+        User emisor = db.find(User.class, emailEmisor);
+        User receptor = db.find(User.class, emailReceptor);
+        
+        if (receptor == null) {
+            db.getTransaction().commit();
+            throw new Exception("El usuario destinatario no existe.");
+        }
+        
+        TypedQuery<Integer> query = db.createQuery("SELECT MAX(m.id) FROM Mensaje m", Integer.class);
+        Integer maxId = query.getSingleResult();
+        
+        int nuevoID = 0;
+        if (maxId == null) {
+        	nuevoID = 1;
+        }else {
+        	nuevoID = maxId + 1;
+        }
+        
+        Mensaje msg = new Mensaje(emisor, receptor, asunto, cuerpo);
+        msg.setId(nuevoID);
+        db.persist(msg);
+        db.getTransaction().commit();
+    }
+
+    public List<Mensaje> getMensajesRecibidos(String emailUsuario) {
+        TypedQuery<Mensaje> query = db.createQuery(
+            "SELECT m FROM Mensaje m WHERE m.destinatario.email = ?1 ORDER BY m.fechaEnvio DESC", 
+            Mensaje.class
+        );
+        query.setParameter(1, emailUsuario);
+        return query.getResultList();
+    }
     
+ //------------------------------------------------------------------------------------------------------------------------------------  
     
 	public void close(){
 		db.close();

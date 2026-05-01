@@ -8,6 +8,7 @@ import javax.jws.WebService;
 
 import dataAccess.DataAccess;
 import domain.Buyer;
+import domain.Mensaje;
 import domain.Offer;
 import domain.Sale;
 import domain.Seller;
@@ -233,6 +234,26 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.devolverProducto(o, motivoDev);
 		dbManager.close();
 	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------
+	@Override
+    public void enviarMensaje(String emailRemitente, String emailDestinatario, String asunto, String cuerpo) throws Exception {
+        dbManager.open();
+        try {
+            dbManager.enviarMensaje(emailRemitente, emailDestinatario, asunto, cuerpo);
+        } finally {
+            dbManager.close();
+        }
+    }
+
+    @Override
+    public List<Mensaje> getMensajesRecibidos(String emailUsuario) {
+        dbManager.open();
+        List<Mensaje> res = dbManager.getMensajesRecibidos(emailUsuario);
+        dbManager.close();
+        return res;
+    }
+	//---------------------------------------------------------------------------------------------------------------------------
 	
 }
 

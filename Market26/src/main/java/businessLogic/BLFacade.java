@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import domain.Buyer;
+import domain.Mensaje;
 import domain.Offer;
 import domain.Sale;
 import domain.User;
@@ -87,5 +88,7 @@ public interface BLFacade  {
 	public List<Offer> getProductosComprados(User usuario, String desc);
 	public void devolverProducto(Offer o, String motivoDev);
 	public List<Offer> getProductosDevueltos(User usuario, String desc);
+	public void enviarMensaje(String emailRemitente, String emailDestinatario, String asunto, String cuerpo) throws Exception;
+	public List<Mensaje> getMensajesRecibidos(String emailUsuario);
 
 }

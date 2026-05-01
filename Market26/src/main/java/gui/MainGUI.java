@@ -10,6 +10,7 @@ import javax.swing.*;
 import businessLogic.BLFacade;
 import domain.Seller;
 import domain.User;
+import gui.DevolverGUI;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,6 +39,8 @@ public class MainGUI extends JFrame {
 	private JButton jButtonDevolverProd=null;
 
 	private JButton jButtonMiCartera;
+	
+	private JButton JButtonbtnMensajes;
 
     private static BLFacade appFacadeInterface;
 	
@@ -52,6 +55,7 @@ public class MainGUI extends JFrame {
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JRadioButton rdbtnNewRadioButton_2;
+	private JRadioButton rdbtnNewRadioButton_3;
 	private JPanel panel;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton jButtonSignIn;
@@ -83,7 +87,7 @@ public class MainGUI extends JFrame {
 		this.setSize(495, 290);
 		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jLabelSelectOption.setBounds(0, 0, 480, 63);
-		jLabelSelectOption.setFont(new Font("Tahoma", Font.BOLD, 13));
+		jLabelSelectOption.setFont(new Font("Dialog", Font.BOLD, 13));
 		jLabelSelectOption.setForeground(Color.BLACK);
 		jLabelSelectOption.setHorizontalAlignment(SwingConstants.CENTER);
 		
@@ -161,6 +165,7 @@ public class MainGUI extends JFrame {
 		jContentPane.add(jLabelSelectOption);
 		jContentPane.add(jButtonVerCarrito);
 		jContentPane.add(jButtonProdDev);
+		
 
 		jButtonSignIn = new JButton(); 
 		jButtonSignIn.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SignIn"));
@@ -265,10 +270,21 @@ public class MainGUI extends JFrame {
 		});
 		buttonGroup.add(rdbtnNewRadioButton_2);
 		
+		rdbtnNewRadioButton_3 = new JRadioButton("中文");
+        rdbtnNewRadioButton_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Locale.setDefault(new Locale("zh"));
+                paintAgain();
+            }
+        });
+        buttonGroup.add(rdbtnNewRadioButton_3);
+		
+		
 			panel = new JPanel();
-			panel.setBounds(126, 190, 240, 26);
+			panel.setBounds(76, 190, 360, 26);
 			panel.add(rdbtnNewRadioButton_1);
 			panel.add(rdbtnNewRadioButton_2);
+			panel.add(rdbtnNewRadioButton_3);
 			panel.add(rdbtnNewRadioButton);
 			jContentPane.add(panel);
 			
@@ -305,19 +321,19 @@ public class MainGUI extends JFrame {
 		passwordField.setVisible(false);
 
 		lblNewLabel_2 = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.Eleccion"));
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_2.setFont(new Font("Dialog", Font.PLAIN, 12));
 		lblNewLabel_2.setBounds(40, 125, 153, 20);
 		jContentPane.add(lblNewLabel_2);
 		
 		rdbtnSell = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.Tipo1"));
 		buttonGroup2.add(rdbtnSell);
-		rdbtnSell.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rdbtnSell.setFont(new Font("Dialog", Font.PLAIN, 12));
 		rdbtnSell.setBounds(190, 125, 102, 20);
 		jContentPane.add(rdbtnSell);
 		
 		rdbtnBuy = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.Tipo2"));
 		buttonGroup2.add(rdbtnBuy);
-		rdbtnBuy.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rdbtnBuy.setFont(new Font("Dialog", Font.PLAIN, 12));
 		rdbtnBuy.setBounds(307, 125, 102, 20);
 		jContentPane.add(rdbtnBuy);
 		rdbtnBuy.setVisible(false);
@@ -362,6 +378,8 @@ public class MainGUI extends JFrame {
 					btnBack.setVisible(false);
 
 					jButtonMiCartera.setVisible(true);
+					
+					JButtonbtnMensajes.setVisible(true);
 
 					if(usuario instanceof Seller) {
 						jButtonCreateQuery.setVisible(true);
@@ -385,7 +403,7 @@ public class MainGUI extends JFrame {
 				}		  
 			}
 		});
-		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnEntrar.setFont(new Font("Dialog", Font.PLAIN, 14));
 		btnEntrar.setBounds(144, 154, 153, 29);
 		jContentPane.add(btnEntrar);
 		btnEntrar.setEnabled(false);
@@ -408,7 +426,7 @@ public class MainGUI extends JFrame {
 			}			  
 			
 		});
-		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBack.setFont(new Font("Dialog", Font.PLAIN, 14));
 		btnBack.setBounds(311, 142, 98, 25);
 		jContentPane.add(btnBack);
 		btnBack.setVisible(false);
@@ -449,6 +467,7 @@ public class MainGUI extends JFrame {
 						lblIntroNombre.setVisible(false);
 						textFieldNom.setVisible(false);
 						jButtonMiCartera.setVisible(true);
+						JButtonbtnMensajes.setVisible(true);
 						if(usuario instanceof Seller) {
 							jButtonCreateQuery.setVisible(true);
 							jButtonQueryQueries.setVisible(true);
@@ -476,7 +495,7 @@ public class MainGUI extends JFrame {
 						  
 			}
 		});
-		btnReg.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnReg.setFont(new Font("Dialog", Font.PLAIN, 14));
 		btnReg.setBounds(144, 154, 153, 29);
 		jContentPane.add(btnReg);
 		btnReg.setEnabled(false);
@@ -504,6 +523,22 @@ public class MainGUI extends JFrame {
 			}
 		});
 		jContentPane.add(jButtonMiCartera);
+		
+		JButtonbtnMensajes = new JButton(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MisMensajes"));
+		JButtonbtnMensajes.setBounds(10, 15, 110, 30); 
+		JButtonbtnMensajes.setVisible(false);
+
+		JButtonbtnMensajes.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (usuario != null) { 
+		            JFrame bandejaWindow = new BandejaEntradaGUI(usuario.getEmail());
+		            bandejaWindow.setVisible(true);
+		            bandejaWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+		        }
+		    }
+		});
+		jContentPane.add(JButtonbtnMensajes);
+		
 	}
 	
 	private void paintAgain() {
@@ -524,6 +559,7 @@ public class MainGUI extends JFrame {
 		lblIntroNombre.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.Nom"));
 		jButtonAcceptQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.AcceptSales"));
 		jButtonMiCartera.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MiCartera"));
+		JButtonbtnMensajes.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.MisMensajes"));
 		jButtonVerCarrito.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.VerCarrito"));
 		jButtonDevolverProd.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.DevolverProd"));
 		jButtonProdDev.setText(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.ProdDev"));

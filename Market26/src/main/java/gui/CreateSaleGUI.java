@@ -65,6 +65,11 @@ public class CreateSaleGUI extends JFrame {
 	private final JButton btnNewButton_2 = new JButton("grabar Imagen"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	public CreateSaleGUI(String mail) {
+		
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {}
 
 		thisFrame=this;
 		this.sellerMail=mail;

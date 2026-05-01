@@ -12,6 +12,12 @@ public class LeerMensajeGUI extends JFrame {
     private boolean mostrarBoton;
 
     public LeerMensajeGUI(String miEmail, Mensaje msg, boolean mostrarBoton) {
+    	
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {}
+    	
         this.miEmail = miEmail;
         this.msgActual = msg;
         this.mostrarBoton=mostrarBoton;

@@ -11,6 +11,7 @@ import domain.Mensaje;
 import businessLogic.BLFacade;
 
 public class BandejaEntradaGUI extends JFrame {
+	
     private JTable tableMensajes;
     private DefaultTableModel tableModel;
     private String miEmail;
@@ -20,6 +21,12 @@ public class BandejaEntradaGUI extends JFrame {
     private final ButtonGroup buttonGroup = new ButtonGroup();
 
     public BandejaEntradaGUI(String email) {
+    	
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {}
+    	
         this.miEmail = email;
         setTitle(ResourceBundle.getBundle("Etiquetas").getString("BandejaEntrada.Titulo"));
         setBounds(100, 100, 600, 400);

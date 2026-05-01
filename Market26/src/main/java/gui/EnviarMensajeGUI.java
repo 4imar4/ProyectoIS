@@ -18,6 +18,12 @@ public class EnviarMensajeGUI extends JFrame {
     }
 
     public EnviarMensajeGUI(String email, String destino, String asunto) {
+    	
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {}
+    	
         this.miEmail = email;
         inicializarComponentes();
         

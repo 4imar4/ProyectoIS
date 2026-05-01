@@ -44,6 +44,12 @@ public class DevolverGUI extends JFrame {
 	private HashMap<Integer, String> texto=new HashMap<Integer, String>();
 
 	public DevolverGUI(User us) {
+		
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {}
+		
 		texto.put(-1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Rechazado"));
 		texto.put(0, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Pendiente"));
 		texto.put(1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Aceptado"));

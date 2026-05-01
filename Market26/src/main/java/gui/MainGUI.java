@@ -83,7 +83,6 @@ public class MainGUI extends JFrame {
 		super();
 
 		
-		
 		this.setSize(495, 290);
 		jLabelSelectOption = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.SelectOption"));
 		jLabelSelectOption.setBounds(0, 0, 480, 63);
@@ -281,11 +280,11 @@ public class MainGUI extends JFrame {
 		
 		
 			panel = new JPanel();
-			panel.setBounds(76, 190, 360, 26);
-			panel.add(rdbtnNewRadioButton_1);
+			panel.setBounds(56, 190, 360, 26);
 			panel.add(rdbtnNewRadioButton_2);
-			panel.add(rdbtnNewRadioButton_3);
+			panel.add(rdbtnNewRadioButton_1);
 			panel.add(rdbtnNewRadioButton);
+			panel.add(rdbtnNewRadioButton_3);
 			jContentPane.add(panel);
 			
 		lblIntroCuenta = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("MainGUI.IntrCu")); 

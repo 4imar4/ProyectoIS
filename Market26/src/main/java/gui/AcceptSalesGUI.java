@@ -42,6 +42,12 @@ public class AcceptSalesGUI extends JFrame {
 	
 
 	public AcceptSalesGUI(User us) {
+		
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {}
+		
 		usuario=us;
 		tableProducts.setEnabled(false);
 		thisFrame=this;

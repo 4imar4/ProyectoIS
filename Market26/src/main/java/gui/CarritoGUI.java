@@ -43,6 +43,12 @@ public class CarritoGUI extends JFrame {
 	private HashMap<Integer, String> texto=new HashMap<Integer, String>();
 
 	public CarritoGUI(User us) {
+		
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {}
+		
 		texto.put(-1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Rechazado"));
 		texto.put(0, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Pendiente"));
 		texto.put(1, ResourceBundle.getBundle("Etiquetas").getString("CarritoGUI.Aceptado"));

@@ -57,6 +57,9 @@ public class ShowOfferGUI extends JFrame {
 	private JLabel lblPriceCom;
 	private JLabel lblMotivo;
 	private JTextField textFieldPriceComp;
+	private JTextField textFieldValoracion;
+	private JLabel lblValoracion;
+	private JButton btnValoracion;
 	
 	public ShowOfferGUI(Offer offer,User user) {
 		this.us=user;
@@ -216,6 +219,44 @@ public class ShowOfferGUI extends JFrame {
 			textoDevolucion.setVisible(true);
 			textoDevolucion.setText(offer.getMotivoDevolucion());
 			lblMotivo.setVisible(true);
+		}
+		
+		lblValoracion = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowSaleGUI.valoracion"));
+		lblValoracion.setBounds(256, 16, 153, 16);
+		getContentPane().add(lblValoracion);
+		lblValoracion.setVisible(false);
+		
+		textFieldValoracion = new JTextField();
+		textFieldValoracion.setEditable(true);
+		textFieldValoracion.setBounds(402, 15, 75, 18);
+		getContentPane().add(textFieldValoracion);
+		textFieldValoracion.setColumns(10);
+		textFieldValoracion.setVisible(false);
+		
+		btnValoracion = new JButton(ResourceBundle.getBundle("Etiquetas").getString("ShowOfferGUI.btnValoracion"));
+		btnValoracion.setBounds(487, 15, 93, 18);
+		getContentPane().add(btnValoracion);
+		btnValoracion.setVisible(false);
+		
+		if(us instanceof Buyer && (offer.getAccepted()==1 || offer.getAccepted()==-2)) {
+			textFieldValoracion.setVisible(true);
+			lblValoracion.setVisible(true);
+			btnValoracion.setVisible(true);
+
+		    btnValoracion.addActionListener(new ActionListener() {
+		        public void actionPerformed(ActionEvent e) {
+		        	textFieldValoracion.setEditable(false);
+					btnValoracion.setVisible(false);
+		            String v=textFieldValoracion.getText();
+		            try {
+		            	double dv=Double.parseDouble(v);
+		            	facade.setValoracion(dv,offer.getSale().getSeller().getEmail());
+		            	textFieldValoracion.setText("Ok");
+		            }catch(NumberFormatException ex) {
+		            	textFieldValoracion.setText("ERROR.");
+		            }
+		        }
+		    });
 		}
 		
 	}	 

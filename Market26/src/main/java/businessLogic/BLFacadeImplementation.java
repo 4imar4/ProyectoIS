@@ -261,7 +261,23 @@ public class BLFacadeImplementation  implements BLFacade {
         dbManager.close();
         return res;
     }
-	//---------------------------------------------------------------------------------------------------------------------------
-	
+    
+	public double getValoracion(String sellerEmail) {
+		dbManager.open();
+        double res = dbManager.getValoracion(sellerEmail);
+        dbManager.close();
+        return res;
+	}
+	public int getNumVals(String sellerEmail) {
+		dbManager.open();
+        int res = dbManager.getNumVals(sellerEmail);
+        dbManager.close();
+        return res;
+	}
+	public void setValoracion(double v, String sellerEmail) {
+		dbManager.open();
+        dbManager.setValoracion(v,sellerEmail);
+        dbManager.close();
+	}
 }
 

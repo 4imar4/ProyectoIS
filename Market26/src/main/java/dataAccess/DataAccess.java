@@ -516,6 +516,26 @@ public class DataAccess  {
         return query.getResultList();
     }
     
+    public double getValoracion(String sellerEmail) {
+        Seller vendedor = db.find(Seller.class, sellerEmail);
+        return vendedor.getValoracion();
+    }
+    
+    public int getNumVals(String sellerEmail) {
+        Seller vendedor = db.find(Seller.class, sellerEmail);
+        return vendedor.getCantVal();
+    }
+	public void setValoracion(double v, String sellerEmail) {
+        db.getTransaction().begin();
+        Seller vendedor = db.find(Seller.class, sellerEmail);
+        int nuevacant=vendedor.getCantVal()+1;
+        vendedor.setCantVal(nuevacant);
+        double ant=vendedor.getValoracion();
+        vendedor.setValoracion(ant+(1.0/nuevacant*(v-ant)));
+        db.persist(vendedor);
+        db.getTransaction().commit();
+	}
+
  //------------------------------------------------------------------------------------------------------------------------------------  
     
 	public void close(){

@@ -26,6 +26,9 @@ public class Seller extends User implements Serializable {
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Sale> sales=new ArrayList<Sale>();
 
+	private double valoracion=0.0;
+	private int cantVal=0;
+	
 	public Seller() {
 		super();
 	}
@@ -87,6 +90,22 @@ public class Seller extends User implements Serializable {
 		if (super.getEmail() != other.getEmail())
 			return false;
 		return true;
+	}
+
+	public double getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(double valoracion) {
+		this.valoracion = valoracion;
+	}
+
+	public int getCantVal() {
+		return cantVal;
+	}
+
+	public void setCantVal(int cantVal) {
+		this.cantVal = cantVal;
 	}
 
 	

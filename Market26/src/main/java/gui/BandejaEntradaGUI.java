@@ -60,7 +60,7 @@ public class BandejaEntradaGUI extends JFrame {
         
         rdbtnEnviados = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("BandejaEntradaGUI.botEnviados"));
         buttonGroup.add(rdbtnEnviados);
-        rdbtnEnviados.setBounds(322, 25, 102, 20);
+        rdbtnEnviados.setBounds(401, 25, 165, 20);
         getContentPane().add(rdbtnEnviados);
         rdbtnEnviados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -72,7 +72,7 @@ public class BandejaEntradaGUI extends JFrame {
         rdbtnRecibidos = new JRadioButton(ResourceBundle.getBundle("Etiquetas").getString("BandejaEntradaGUI.botRecibidos"));
         buttonGroup.add(rdbtnRecibidos);
         rdbtnRecibidos.setSelected(true);
-        rdbtnRecibidos.setBounds(218, 25, 102, 20);
+        rdbtnRecibidos.setBounds(218, 25, 155, 20);
         getContentPane().add(rdbtnRecibidos);
         rdbtnRecibidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

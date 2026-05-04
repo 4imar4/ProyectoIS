@@ -50,6 +50,8 @@ public class ShowSaleGUI extends JFrame {
 	private JTextField textFieldComprar;
 	private JLabel lblCompr;
 	private JLabel lblRes;
+	private JTextField textFieldValoracion;
+	private JLabel lblValoracion;
 	
 	public ShowSaleGUI(Sale sale,User us) {
 		usuario=us;
@@ -156,6 +158,17 @@ public class ShowSaleGUI extends JFrame {
 		lblRes.setLocation(15, 305);
 		lblCompr.setBounds(180, 231, 114, 12);
 		getContentPane().add(lblRes);
+		
+		lblValoracion = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("ShowSaleGUI.valoracion"));
+		lblValoracion.setBounds(289, 16, 153, 16);
+		getContentPane().add(lblValoracion);
+		
+		textFieldValoracion = new JTextField();
+		textFieldValoracion.setEditable(false);
+		textFieldValoracion.setText(""+facade.getValoracion(sale.getSeller().getEmail())+"  ("+facade.getNumVals(sale.getSeller().getEmail())+")");
+		textFieldValoracion.setBounds(461, 15, 75, 18);
+		getContentPane().add(textFieldValoracion);
+		textFieldValoracion.setColumns(10);
 		lblRes.setVisible(false);
 		
 		

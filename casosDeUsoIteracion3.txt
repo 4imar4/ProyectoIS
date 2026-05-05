@@ -3,6 +3,7 @@ Devolver producto comprado (comprador)
 Ver productos devueltos (vendedor)
 Mandar correo electronico
 Ver correo electronico
+Valorar vendedor
 
 Clases de dominio:
 Correo

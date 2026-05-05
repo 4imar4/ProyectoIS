@@ -250,9 +250,14 @@ public class ShowOfferGUI extends JFrame {
 		            String v=textFieldValoracion.getText();
 		            try {
 		            	double dv=Double.parseDouble(v);
+		            	if (dv>10.0 || dv<0.0) {
+		            		throw new Exception();
+		            	}
 		            	facade.setValoracion(dv,offer.getSale().getSeller().getEmail());
 		            	textFieldValoracion.setText("Ok");
 		            }catch(NumberFormatException ex) {
+		            	textFieldValoracion.setText("ERROR.");
+		            }catch(Exception exc) {
 		            	textFieldValoracion.setText("ERROR.");
 		            }
 		        }
